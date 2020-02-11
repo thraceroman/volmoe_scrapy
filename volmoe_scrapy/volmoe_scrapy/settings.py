@@ -14,6 +14,7 @@ BOT_NAME = 'volmoe_scrapy'
 SPIDER_MODULES = ['volmoe_scrapy.spiders']
 NEWSPIDER_MODULE = 'volmoe_scrapy.spiders'
 
+LOG_LEVEL = "WARNING"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'volmoe_scrapy (+http://www.yourdomain.com)'
@@ -64,9 +65,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'volmoe_scrapy.pipelines.VolmoeScrapyPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'volmoe_scrapy.pipelines.VolmoeScrapyPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

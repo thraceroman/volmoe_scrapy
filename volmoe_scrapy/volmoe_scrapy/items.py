@@ -14,3 +14,7 @@ class VolmoeScrapyItem(scrapy.Item):
     title = scrapy.Field()
     author = scrapy.Field()
     num = scrapy.Field()
+    url = scrapy.Field()
+    desc = scrapy.Field()
+    score = scrapy.Field()
+    filesize = scrapy.Field()

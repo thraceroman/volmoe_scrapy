@@ -9,4 +9,8 @@
 
 待实现的:
 (1)爬取详情页中的下载地址,这又是一个循环,这里会有线程问题(应该)
+>https://volmoe.com/down/10231/1001/0/2/1-0/ 这里是火凤燎原(10231),第一卷(1001,卷都是1打头,话是3打头,3521就是第521话),普通线路(0,2是vip线),epub格式下载(2,1是mobi格式)
 (2)分页的实现,两种,一个是类似详情页跳转(直接用scrapy shell进行尝试即可),把下一页的url写入scrapy.Request进行callback=self.parse;另一个是用scrapy框架中的
+
+>http://rss.rrys.tv/rss/feed/26992 悠长假期的磁力链爬取
+http://www.rrys2019.com/search/index?keyword=%E6%82%A0%E9%95%BF%E5%81%87%E6%9C%9F

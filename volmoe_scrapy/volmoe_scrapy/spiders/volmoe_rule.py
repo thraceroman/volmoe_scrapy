@@ -29,6 +29,8 @@ class VolmoeRuleSpider(CrawlSpider):
         # item['desc1'] = re.findall('<div id="desc_text" style="word-wrap:break-word; word-break:break-all; ">(.*?)</div>',response.body.decode())
         # 除了用xpath,还可以用re,额,这里body的内容好像有些问题,尝试把那页下载到本地发现内容不太符合
         # item['down'] = re.findall("https://(volmoe.com/down/\d+/\d+/0/2/1-0)",response.body.decode())
+        # 确实,用爬的获取的真实的网页都只是 javascript:display_codeinfo( 'e401', 0 )
+        # response.xpath('//div[@id="div_mobi"]//tr[@class="listbg1"]//@href').extract()
         item["desc"] = response.xpath("//div[@class='book_desc']/div/text()[1]").extract_first()
         item["score"] = response.xpath("//div[@class='bookinfo']//td[@id='book_score']//tr[1]/td[1]/font[1]/text()").extract_first()
         item["filesize"] = response.xpath("//div[@class='bookinfo']//td[@id='book_score']//tr[1]/td[2]/font[2]/text()").extract_first()

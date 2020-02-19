@@ -16,5 +16,13 @@
 下载页的内容获取,如果直接用爬虫的话只会得到javascript:display_codeinfo( 'e401', 0 ),而不会获取真实的下载页
 原因:只有以用户登录时才会得到下载页面的网址,即可以添加带有用户的cookies,或者发送post请求,但是如何在详情页里发送请求?
 
+0.7:使用scarpy的imagepipeline进行图片下载注意事项:
+1.item的限定格式,必要有images image_urls image_results image_paths 可有image_name
+2.spider中只需要把地址列表放入image_urls中即可,处理是pipelines他自己进行
+3.pipelines中要导ImagesPipeline 和相关的总共3个包,并且其自依赖的是Pillow这个第三方库,需要先pip,
+4.同时settings中要开启IMAGES_STORE设置
+5.重载get_media_requests item_completed方法,此时是在IMAGES_STORE\\full下,并且文件名都是默认的
+6.格式化的下载,需要重载file_path方法,在path中写入每一个的样式
+
 >http://rss.rrys.tv/rss/feed/26992 悠长假期的磁力链爬取
 http://www.rrys2019.com/search/index?keyword=%E6%82%A0%E9%95%BF%E5%81%87%E6%9C%9F

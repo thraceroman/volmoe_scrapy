@@ -12,6 +12,7 @@ class PhotoSpider(scrapy.Spider):
     # 首页和vodlist是一样的层级结构
     # start_urls = ['http://www.68aiav.com']
     start_urls = ['http://www.68aiav.com/vodlist/56']
+    # http://www.68aiav.com/vodtag/259LUXU/index-2.html
     # start_urls = ['http://www.68aiav.com/newslist/38']
 
     def parse(self, response):

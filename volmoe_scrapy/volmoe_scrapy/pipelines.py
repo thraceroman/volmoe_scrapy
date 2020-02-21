@@ -36,20 +36,20 @@ class PhScrapyPipeline(ImagesPipeline):
                 image_url,
                 meta={'item':item})
 
-    # def file_path(self,request,response=None,info=None):
-    #     image_name = request.meta['item']['image_name']
-    #     # 这里的意思?在哪里进行图片目录的存储呢,可以用相对的,也能是绝对路径,
-    #     # 注意!!!!无论是绝对路径还是相对路径!都需要在settings中进行IMAGES_STORE设置
-    #     # path = 'full/' +image_name+ '/' + request.url[-7:]
-    #     path = 'D:\\code\\photo\\' +image_name+ '\\' + request.url[-7:]
-    #     return path
+    def file_path(self,request,response=None,info=None):
+        image_name = request.meta['item']['image_name']
+        # 这里的意思?在哪里进行图片目录的存储呢,可以用相对的,也能是绝对路径,
+        # 注意!!!!无论是绝对路径还是相对路径!都需要在settings中进行IMAGES_STORE设置
+        # path = 'full/' +image_name+ '/' + request.url[-7:]
+        path = 'D:\\code\\photo\\' +image_name+ '\\' + request.url[-7:]
+        return path
 
     def item_completed(self,results,item,info):
         image_path = [x['path'] for ok,x in results if ok]
         if not image_path:
             raise DropItem('Item contains no images')
         item['image_paths'] = image_path
-        print(item)
+        # print(item)
         return item
 
 

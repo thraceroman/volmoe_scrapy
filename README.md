@@ -24,5 +24,24 @@
 5.重载get_media_requests item_completed方法,此时是在IMAGES_STORE\\full下,并且文件名都是默认的
 6.格式化的下载,需要重载file_path方法,在path中写入每一个的样式
 
+0.8:使用scrapy_redis进行增量爬虫
+1.安装redis server,导scrapy_redis模块
+2.在settings中进行相应配置
+    DUPEFILTER_CLASS = 'scrapy_redis.dupefilter.RFPDupeFilter'
+    SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
+    # 坑啊,,一定要答对字,这里就是把persist打成了presist,导致一直被清空~~~~~~~~~~~~~~
+    SCHEDULER_PERSIST = True
+    REDIS_URL = 'redis://127.0.0.1:6379'
+3.redis查看
+    redis-cli启动
+    keys * 查询所有键
+    tpye photo2:dupefilter 查询类型
+    zcard llen scard看长度
+    lrange listname 0 -1 看list的内容
+    zrange zsetname 0 -1 看zset的内容
+    smembers setname      看set的内容
+
+    
+
 >http://rss.rrys.tv/rss/feed/26992 悠长假期的磁力链爬取
 http://www.rrys2019.com/search/index?keyword=%E6%82%A0%E9%95%BF%E5%81%87%E6%9C%9F

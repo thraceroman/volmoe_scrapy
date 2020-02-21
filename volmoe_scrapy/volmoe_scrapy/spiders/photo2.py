@@ -5,7 +5,7 @@ from volmoe_scrapy.items import PhScrapyItem
 class Photo2Spider(scrapy.Spider):
     name = 'photo2'
     allowed_domains = ['68aiav.com']
-    start_urls = ['http://www.68aiav.com/newslist/41']
+    start_urls = ['http://www.68aiav.com/newslist/44']
 
     def parse(self, response):
         title_li = response.xpath('//div[@class="wrap mt20"]//li/a[text()!=""]')

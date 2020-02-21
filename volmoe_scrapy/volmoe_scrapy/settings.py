@@ -14,7 +14,14 @@ BOT_NAME = 'volmoe_scrapy'
 SPIDER_MODULES = ['volmoe_scrapy.spiders']
 NEWSPIDER_MODULE = 'volmoe_scrapy.spiders'
 
-LOG_LEVEL = "WARNING"
+# LOG_LEVEL = "WARNING"
+
+# 使用redis进行去重或分布式操作,只有这4行就能进行简单的增量爬虫
+DUPEFILTER_CLASS = 'scrapy_redis.dupefilter.RFPDupeFilter'
+SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
+# 坑啊,,一定要答对字,这里就是把persist打成了presist,导致一直被清空~~~~~~~~~~~~~~
+SCHEDULER_PERSIST = True
+REDIS_URL = 'redis://127.0.0.1:6379'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'volmoe_scrapy (+http://www.yourdomain.com)'
@@ -28,7 +35,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -67,7 +74,9 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    # 'volmoe_scrapy.pipelines.VolmoeScrapyPipeline': 300,
-   'volmoe_scrapy.pipelines.PhScrapyPipeline': 300,
+   # 这里是把item存入redis,而不是指纹
+   # 'scrapy_redis.pipelines.RedisPipeline':400,
+   'volmoe_scrapy.pipelines.PhScrapyPipeline': 300
 }
 IMAGES_STORE = 'D:\\code\\photo'
 

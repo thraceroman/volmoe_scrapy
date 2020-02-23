@@ -13,6 +13,8 @@ import re
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy.http import Request
 from scrapy.exceptions import DropItem
+import requests
+import os
 
 class VolmoeScrapyPipeline(object):
     def process_item(self, item, spider):
@@ -53,3 +55,12 @@ class PhScrapyPipeline(ImagesPipeline):
         return item
 
 
+class VodtagScrapyPipeline(object):
+    def process_item(self, item, spider):
+        # 数据处理
+        # img_file = 'D:\\code\\photo\\' + item['title'][:10] +'.jpg'
+        # img = requests.get(item['img'])
+        # with open(img_file,'wb') as img_out:
+        #     img_out.write(img.content)
+        print(item['title'][:15]+item['m3u8'])
+        return item

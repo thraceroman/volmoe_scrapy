@@ -37,25 +37,6 @@ class PhotoSpider(scrapy.Spider):
             # wget.download(item['img'],img_file)
             print(item)
 
-        # newslist的层级结构,需要剔除
-        # title_li = response.xpath('//div[@class="wrap mt20"]//li/a[text()!=""]')
-        # for title in title_li:
-        #     # 建一个字典,
-        #     item = {}
-        #     # 这里已经直接剔除了前两个广告的标题
-        #     item['title'] = title.xpath('./text()').extract_first()
-        #     # 注意这里需要匹配,其中有前两个是不符合要求的(页面里他们是红色大号的,也就是a直接下层的text为空)
-        #     item['date'] = title.xpath('./span/text()').extract_first()
-        #     item['href'] = title.xpath('./@href').extract_first()
-        #     item['href'] = 'http://www.68aiav.com' + item['href']
-        #     # print(item)
-        #     # 详情页
-        #     yield scrapy.Request(
-        #         item['href'],
-        #         callback=self.parse_detail,
-        #         meta = {'item':item}
-        #     )
-
     def parse_detail(self,response):
         item = response.meta['item']
         item['img'] = response.xpath('//div[@class="wrap mt20"]//img/@src').extract()

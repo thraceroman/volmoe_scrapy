@@ -41,7 +41,14 @@
 - zrange zsetname 0 -1 看zset的内容
 - smembers setname      看set的内容
 
-    
+### 0.81:m3u8的爬取
+仍有些问题:
+- 爬的时候,play是详情页的网址,这个用shell应该可以找到原因;
+- python3的编码问题,转中文算是转不了彻底    
 
 >http://rss.rrys.tv/rss/feed/26992 悠长假期的磁力链爬取
 http://www.rrys2019.com/search/index?keyword=%E6%82%A0%E9%95%BF%E5%81%87%E6%9C%9F
+
+>http://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download&path=/Charlie Chaplin/古/第一季/S01EP11_SP1-笑うカンガルー/S01EP11_SP1-笑うカンガルー.mp4&devuid=百度网盘
+
+>http://pcs.baidu.com/rest/2.0/pcs/file?method=download&devuid=百度网盘&app_id=778750&path=/雪崩_12294950.pdf

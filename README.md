@@ -48,6 +48,18 @@
 
 >http://rss.rrys.tv/rss/feed/26992 悠长假期的磁力链爬取
 http://www.rrys2019.com/search/index?keyword=%E6%82%A0%E9%95%BF%E5%81%87%E6%9C%9F
+xpath('//div[@class="middle-box"]//ul//li[1]//a/@href').extract_first()
+'http://www.rrys2019.com'
+加的时候需要判断是否有此资源,可能会none
+跳转
+xpath('//div[@class="middle-box"]//div[@class="resource-tit"]//h2//a/@href').extract_first()
+跳转
+xpath('//item')
+分组
+xpath('.//title/text()').extract_first()
+xpath('.//ed2k/text()').extract_first()
+xpath('.//magent/text()').extract_first()
+xpath('.//pan/text()').extract_first()
 
 >http://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download&path=/Charlie Chaplin/古/第一季/S01EP11_SP1-笑うカンガルー/S01EP11_SP1-笑うカンガルー.mp4&devuid=百度网盘
 

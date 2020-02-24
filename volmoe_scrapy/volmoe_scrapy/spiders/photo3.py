@@ -46,6 +46,9 @@ class Photo3Spider(scrapy.Spider):
         else:
             url_1 = url_if[0]
             # 需要进行unescape解码
+            # http://www.68aiav.com/vod/122987.html 这个会有中文解码问题,从play_url开始
+            # 下级的是 http://www.68aiav.com/play/122987-5-1.html
+
             # 得到的url_2是/Public/player/player5.html?url=\\x68\\x74\\x74形式,
             url_2 = urllib.parse.unquote(url_1)
             item['play2'] = 'www.68aiav.com' + url_2

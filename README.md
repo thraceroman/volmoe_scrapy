@@ -64,3 +64,17 @@ xpath('.//pan/text()').extract_first()
 >http://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download&path=/Charlie Chaplin/古/第一季/S01EP11_SP1-笑うカンガルー/S01EP11_SP1-笑うカンガルー.mp4&devuid=百度网盘
 
 >http://pcs.baidu.com/rest/2.0/pcs/file?method=download&devuid=百度网盘&app_id=778750&path=/雪崩_12294950.pdf
+
+### 0.84:爬80s的云播地址
+一个简单的requests爬取,额,其实用scrapy也行,直接用shell
+data = {'Input':'%E6%90%9C%E7%B4%A2','search_typeid':'1','skey':'%E7%9A%84%E6%96%B0%E7%94%9F%E6%B4%BB'}
+r = requests.post('http://www.8080s.net/movie/search',data=data)
+
+shell
+req = scrapy.FormRequest('http://www.8080s.net/movie/search',formdata=data) 
+fetch(req)
+ju = response.xpath('//div[@class="clearfix noborder"]//a/@href').extract_first() 
+fetch('http://www.8080s.net' + ju)
+暂时只能到此,下面的拿不出来,这是因为在线播放是另一个网页,嵌在按钮里,其实就是后面再来/play/f-1
+fetch('http://www.8080s.net' + ju + '/play/f-1')
+

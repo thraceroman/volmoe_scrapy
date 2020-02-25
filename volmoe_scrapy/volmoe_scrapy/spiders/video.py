@@ -7,12 +7,18 @@ class VideoSpider(scrapy.Spider):
     allowed_domains = ['8080s.net']
     start_urls = ['http://www.8080s.net/movie/search']
 
+    # 带参数的启动爬虫,只需要在构造函数上加上参数即可,
+    # 命令行是 scrapy crawl video -a keyword='我是大哥大'
+    def __init__(self,keyword=None,**kwargs):
+        super(VideoSpider,self).__init__(**kwargs)
+        self.keyword = keyword
+
     # 初始请求,提交搜索的post请求
     def start_requests(self):
         data = {
             'Input':'搜索',
             'search_typeid':'1',
-            'skey':'我是大哥大'
+            'skey':self.keyword
         }
         for url in self.start_urls:
             yield scrapy.FormRequest(

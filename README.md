@@ -46,6 +46,7 @@
 - 爬的时候,play是详情页的网址,这个用shell应该可以找到原因;
 - python3的编码问题,转中文算是转不了彻底    
 
+### 0.82:rrys rss的爬取
 >http://rss.rrys.tv/rss/feed/26992 悠长假期的磁力链爬取
 http://www.rrys2019.com/search/index?keyword=%E6%82%A0%E9%95%BF%E5%81%87%E6%9C%9F
 xpath('//div[@class="middle-box"]//ul//li[1]//a/@href').extract_first()
@@ -67,6 +68,7 @@ xpath('.//pan/text()').extract_first()
 
 ### 0.84:爬80s的云播地址
 一个简单的requests爬取,额,其实用scrapy也行,直接用shell
+data = {'Input':'搜索','search_typeid':'1','skey':'的新生活'}
 data = {'Input':'%E6%90%9C%E7%B4%A2','search_typeid':'1','skey':'%E7%9A%84%E6%96%B0%E7%94%9F%E6%B4%BB'}
 r = requests.post('http://www.8080s.net/movie/search',data=data)
 
@@ -78,3 +80,6 @@ fetch('http://www.8080s.net' + ju)
 暂时只能到此,下面的拿不出来,这是因为在线播放是另一个网页,嵌在按钮里,其实就是后面再来/play/f-1
 fetch('http://www.8080s.net' + ju + '/play/f-1')
 
+### 0.84待解决:
+- 真正的m3u8地址还没爬取到,好像是因为在JavaScript中,拿不出来,
+- 搜索词错误的情况如何提示

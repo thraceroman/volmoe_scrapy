@@ -81,5 +81,5 @@ fetch('http://www.8080s.net' + ju)
 fetch('http://www.8080s.net' + ju + '/play/f-1')
 
 ### 0.84待解决:
-- 真正的m3u8地址还没爬取到,好像是因为在JavaScript中,拿不出来,
+- 真正的m3u8地址还没爬取到,好像是因为在JavaScript中,拿不出来,用selenium试试
 - 搜索词错误的情况如何提示

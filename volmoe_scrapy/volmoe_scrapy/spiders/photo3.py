@@ -50,7 +50,7 @@ class Photo3Spider(scrapy.Spider):
             # 下级的是 http://www.68aiav.com/play/122987-5-1.html
 
             # 得到的url_2是/Public/player/player5.html?url=\\x68\\x74\\x74形式,
-            # 中文部分是\\xe8\\xae\\xa9\\xe5\\xa5\\xb3开始的,
+            # 中文部分是\\xe8\\xae\\xa9\\xe5\\xa5\\xb3开始的,这是unicode码
             # 911解码上对应的是\u8BA9\u5973
             # 即,,问题是如何把3个\x转成2个\u
             url_2 = urllib.parse.unquote(url_1)
@@ -58,9 +58,11 @@ class Photo3Spider(scrapy.Spider):
             # 真正的m3u8地址在url后面,还需要一步解码
             # 注意,视频2区的不是m3u8格式的,字符串解码是一样的,不过地址无法看
             # 还有些其中带有中文,\x20\xe8\xae\xa9\xe5\xa5\xb3\xe6\x95\x99\xe5\xb8\x88\xe5\xa4\xa7\xe6\xa1\xa5\xe6\x9c\xaa\xe4\xb9\x85\xe6\xbd\xae\xe5\x90\xb9\xe5\x90\xa7\x20\xe5\xa4\xa7\xe6\xa9\x8b\xe6\x9c\xaa\xe4\xb9\x85\x20\xe4\xb8\xad\xe6\x96\x87\xe5\xad\x97\xe5\xb9\x95\x2f\x69\x6e\x64\x65\x78\x2e\x6d\x33\x75\x38
-            # 直接解码中文会成乱码,暂时还木偶办法
+            # 直接解码中文会成乱码,è®©这里表示的其实是'\xe8\xae\xa9',
             url_3 = codecs.decode(url_2.split('=')[1],'unicode_escape')
-            item['m3u8'] = url_3
+            # 即,只需要encode,这里面,居然是要用ISO-8859-1,
+            url_4 = url_3.encode('ISO-8859-1').decode('utf-8')
+            item['m3u8'] = url_4
             yield item
         
 

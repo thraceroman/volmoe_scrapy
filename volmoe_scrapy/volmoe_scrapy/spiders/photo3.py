@@ -50,6 +50,9 @@ class Photo3Spider(scrapy.Spider):
             # 下级的是 http://www.68aiav.com/play/122987-5-1.html
 
             # 得到的url_2是/Public/player/player5.html?url=\\x68\\x74\\x74形式,
+            # 中文部分是\\xe8\\xae\\xa9\\xe5\\xa5\\xb3开始的,
+            # 911解码上对应的是\u8BA9\u5973
+            # 即,,问题是如何把3个\x转成2个\u
             url_2 = urllib.parse.unquote(url_1)
             item['play2'] = 'www.68aiav.com' + url_2
             # 真正的m3u8地址在url后面,还需要一步解码

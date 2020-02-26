@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+import re
 
 class VideoSpider(scrapy.Spider):
     name = 'video'
@@ -49,17 +49,33 @@ class VideoSpider(scrapy.Spider):
             item['href'] = 'http://www.8080s.net' + href
             yield scrapy.Request(
                 item['href'],
-                callback=self.m3u8,
+                callback=self.play_url,
                 meta={'item':item}
             )
-    def m3u8(self,response):
+    def play_url(self,response):
         item = response.meta['item']
         # 能拿到这个网址,虽然不是m3u8的,但是同样可以播放
         item['play'] = response.xpath('//div[@id="olpcode"]/iframe/@src').extract_first()
         # https://feifei.feifeizuida.com/share/4f8a318403063fea751813e0991d5bf6
+        yield scrapy.Request(
+            item['play'],
+            callback=self.m3u8_url,
+            meta={'item':item},
+            # 这里的情况????
+            # 难道不是因为越过8080s的域名了?,加上网络上说会无法去重??
+            dont_filter=True
+        )
+    def m3u8_url(self,response):
+        item = response.meta['item']
         
+
         # 20190921/18284_793345db/index.m3u8在javascript的var中,直接拿拿不到,有什么办法???
         # 观察发现,还有这个的poster地址,替换替换应该可以,但是poster也拿不出来
-        # item['m3u8'] = response.xpath('')
+        # 额,,,再request一次play地址就能有了,
         # https://feifei.feifeizuida.com/20190921/18284_793345db/index.m3u8
-        print(item['title']+item['play'])
+        # /20190921/18284_793345db/index.m3u8
+        # response.url https://feifei.feifeizuida.com/share/4f8a318403063fea751813e0991d5bf6
+        m3u8 = re.findall('"(.*?m3u8)',response.body.decode())[0]
+        # urljoin会自己自动匹配拼接url,一般都是对的,
+        item['m3u8'] = response.urljoin(m3u8)
+        print(item)

@@ -86,3 +86,19 @@ fetch('http://www.8080s.net' + ju + '/play/f-1')
 ### 0.85: 80s云播地址爬取完毕
 结果是m3u8地址,其中最后一步的js其实就是再经过一次跳转,不过此时跳转到的网址已经是域外的,需要在requests中加入dont_filter=True参数
 同时,解决了乱码问题,问题原因是那边用的是ISO的编码,而自己这边是utf-8编码
+
+### 0.9 微博爬取
+https://m.weibo.cn/u/3214549521
+一页10个
+https://m.weibo.cn/detail/4475784733009599 每个的内容页
+首页,是主页,微博,视频,相册这四个里面的微博的主页观察containerid和u的区别,就是在前面加了107603,具体是个啥
+头 100505 主页 230283 微博 107603 相册 107803
+https://m.weibo.cn/api/container/getIndex?type=uid&value=3214549521&containerid=1076033214549521
+这返回的是个json,其中cardlistInfo中有个since_id记录的是下一页的首个内容id 4475788642893839
+a = json.loads(response.text)
+a['data']['cardlistInfo']['since_id']
+下一页
+https://m.weibo.cn/api/container/getIndex?type=uid&value=3214549521&containerid=1076033214549521&since_id=4475788642893839
+### 待解决:
+- 每条微博的具体内容
+- 微博的搜索页面

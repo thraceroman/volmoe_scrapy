@@ -62,5 +62,29 @@ class VodtagScrapyPipeline(object):
         # img = requests.get(item['img'])
         # with open(img_file,'wb') as img_out:
         #     img_out.write(img.content)
-        print(item['title'][:15]+item['m3u8'])
+
+        # 二次查找
+        if item['title'].find('破解') != -1:
+            print(item['title'])
+            print(item['m3u8_li'])
+            # 好像,,,ffmpeg可以直接解带密码的
+            # 存成文件
+            # dir_path = 'D:\\code\\photo\\'+ item['title'][:10]
+            # os.mkdir(dir_path)
+            # key_path = dir_path + '\\' +'key.m3u8'
+            # text_path = dir_path + '\\' + 'index.m3u8'
+            # if 'm3u8_key_text' in item.keys():
+            #     with open(key_path,'w') as key_t:
+            #         key_t.write(item['m3u8_key_text'])
+            #     with open(text_path,'w') as text_t:
+            #         # 两种情况,
+            #         pass
+
+
+            #  ffmpeg -i http://...m3u8 -c copy out.mkv
+        # print(item['m3u8'])
+        # print(item['title'][:15]+item['m3u8'])
+
+        # https://play2.172cat.com/201910/31/ztqee2kf/index.m3u8
+        # https://play2.172cat.com/201910/31/ztqee2kf/500kb/hls/index.m3u8
         return item

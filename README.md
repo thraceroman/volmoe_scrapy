@@ -87,7 +87,7 @@ fetch('http://www.8080s.net' + ju + '/play/f-1')
 结果是m3u8地址,其中最后一步的js其实就是再经过一次跳转,不过此时跳转到的网址已经是域外的,需要在requests中加入dont_filter=True参数
 同时,解决了乱码问题,问题原因是那边用的是ISO的编码,而自己这边是utf-8编码
 
-### 0.9 微博爬取
+### 0.9 微博爬取(ajax渲染,数据在json中)
 https://m.weibo.cn/u/3214549521
 一页10个
 https://m.weibo.cn/detail/4475784733009599 每个的内容页
@@ -102,3 +102,15 @@ https://m.weibo.cn/api/container/getIndex?type=uid&value=3214549521&containerid=
 ### 待解决:
 - 每条微博的具体内容
 - 微博的搜索页面
+找人(综合就是weibo 找人就是user 文章就是article 视频就是video 图片就是pic 话题就是 topic)
+https://s.weibo.com/user?q=zuzuzuzuzuyangyang
+1593400812
+
+### 反爬手段
+- headers,proxy,cookies
+- 验证码
+- js参数加密
+- 字体加密
+
+### 爬虫的另一套逻辑:使用selenium自动化工具,这个,不是男人的浪漫,无视掉
+> https://www.jianshu.com/p/1b63c5f3c98e

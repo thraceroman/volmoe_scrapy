@@ -27,8 +27,9 @@ LOG_LEVEL = "WARNING"
 #USER_AGENT = 'volmoe_scrapy (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
-
+# ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
+# DEPTH_LIMIT = 6
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

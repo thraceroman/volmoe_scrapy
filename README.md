@@ -114,3 +114,10 @@ https://s.weibo.com/user?q=zuzuzuzuzuyangyang
 
 ### 爬虫的另一套逻辑:使用selenium自动化工具,这个,不是男人的浪漫,无视掉
 > https://www.jianshu.com/p/1b63c5f3c98e
+
+### photov
+一些设置中的值,下载超时,顺序输出等,
+
+### 疫情
+> https://voice.baidu.com/act/virussearch/virussearch?from=osari_map 热搜
+https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1 https://news.qq.com/zt2020/page/feiyan.htm#/ 数据

@@ -82,6 +82,11 @@ ITEM_PIPELINES = {
 }
 IMAGES_STORE = 'D:\\code\\photo'
 
+# 顺序输出?
+FEED_EXPORT_FIELDS = ["title", "play", "m3u8"]
+#下载超时退出
+DOWNLOAD_TIMEOUT = 10
+
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

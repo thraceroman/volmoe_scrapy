@@ -55,36 +55,29 @@ class PhScrapyPipeline(ImagesPipeline):
         return item
 
 
-class VodtagScrapyPipeline(object):
-    def process_item(self, item, spider):
-        # 数据处理
-        # img_file = 'D:\\code\\photo\\' + item['title'][:10] +'.jpg'
-        # img = requests.get(item['img'])
-        # with open(img_file,'wb') as img_out:
-        #     img_out.write(img.content)
+# class VodtagScrapyPipeline(object):
+#     def process_item(self, item, spider):
+#         # 数据处理,原始形式,存的比较慢
+#         img_file = 'D:\\code\\photo\\' + item['title'] +'.jpg'
+#         img = requests.get(item['img'])
+#         with open(img_file,'wb') as img_out:
+#             img_out.write(img.content)
+#         print(item['title'])
+#         # https://play2.172cat.com/201910/31/ztqee2kf/index.m3u8
+#         # https://play2.172cat.com/201910/31/ztqee2kf/500kb/hls/index.m3u8
+#         return item
+class VodtagScrapyPipeline(ImagesPipeline):
+    # 以框架的形式,秒存,但是!item需要先写好
+    def get_media_requests(self,item,info):
+        yield Request(
+            item['image_urls'],
+            meta={'item':item})
 
-        # 二次查找
-        if item['title'].find('破解') != -1:
-            print(item['title'])
-            print(item['m3u8_li'])
-            # 好像,,,ffmpeg可以直接解带密码的
-            # 存成文件
-            # dir_path = 'D:\\code\\photo\\'+ item['title'][:10]
-            # os.mkdir(dir_path)
-            # key_path = dir_path + '\\' +'key.m3u8'
-            # text_path = dir_path + '\\' + 'index.m3u8'
-            # if 'm3u8_key_text' in item.keys():
-            #     with open(key_path,'w') as key_t:
-            #         key_t.write(item['m3u8_key_text'])
-            #     with open(text_path,'w') as text_t:
-            #         # 两种情况,
-            #         pass
-
-
-            #  ffmpeg -i http://...m3u8 -c copy out.mkv
-        # print(item['m3u8'])
-        # print(item['title'][:15]+item['m3u8'])
-
-        # https://play2.172cat.com/201910/31/ztqee2kf/index.m3u8
-        # https://play2.172cat.com/201910/31/ztqee2kf/500kb/hls/index.m3u8
-        return item
+    def file_path(self,request,response=None,info=None):
+        image_name = request.meta['item']['title']
+        # 这里的意思?在哪里进行图片目录的存储呢,可以用相对的,也能是绝对路径,
+        # 注意!!!!无论是绝对路径还是相对路径!都需要在settings中进行IMAGES_STORE设置
+        # path = 'full/' +image_name+ '/' + request.url[-7:]
+        path = 'D:\\code\\photo\\' +image_name+ '.jpg'
+        return path
+   

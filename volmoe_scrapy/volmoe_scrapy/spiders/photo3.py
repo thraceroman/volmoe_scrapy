@@ -3,11 +3,14 @@ import scrapy
 import re
 import urllib.parse
 import codecs
+from scrapy.spidermiddlewares.httperror import HttpError
+from twisted.internet.error import DNSLookupError
+from twisted.internet.error import TimeoutError,TCPTimedOutError
 
 class Photo3Spider(scrapy.Spider):
     name = 'photo3'
     allowed_domains = ['68aiav.com']
-    start_urls = ['http://www.68aiav.com/vodtag/JULIA']
+    start_urls = ['http://www.68aiav.com/vodtag/無碼破解版']
 
     def parse(self, response):
         title_li = response.xpath('//div[@class="wrap mt20"]//li')
@@ -72,11 +75,15 @@ class Photo3Spider(scrapy.Spider):
                 yield scrapy.Request(
                     item['m3u8'],
                     callback=self.m3u8_url_li,
+                    errback=self.errback_httpbin,
                     meta={'item':item},
                     # 从这里开始,其实就已经不是域内网页了,
                     dont_filter=True
                 )
             # http://cdn3.senhaige.com:8091/20180803/fOrTzIdd/index.m3u8 这个访问不了 报error
+            # scrapy框架中如何处理error的呢?此处也可以不用scrapy的,直接用urllib.request,再用urllib.error捕获异常
+            # scrapy中是在中间件中进行书写 https://blog.csdn.net/sc_lilei/article/details/80702449?utm_source=blogxgwz4
+            # 也可以直接写个errback函数
             # print(item['m3u8'])
         
     def m3u8_url_li(self,response):
@@ -125,3 +132,24 @@ class Photo3Spider(scrapy.Spider):
 
         
 
+    def errback_httpbin(self, failure):
+        # 日志记录所有的异常信息
+        self.logger.error(repr(failure))
+
+        # 假设我们需要对指定的异常类型做处理，
+        # 我们需要判断异常的类型
+
+        if failure.check(HttpError):
+            # HttpError由HttpErrorMiddleware中间件抛出
+            # 可以接收到非200 状态码的Response
+            response = failure.value.response
+            self.logger.error('HttpError on %s', response.url)
+
+        elif failure.check(DNSLookupError):
+            # 此异常由请求Request抛出
+            request = failure.request
+            self.logger.error('DNSLookupError on %s', request.url)
+
+        elif failure.check(TimeoutError, TCPTimedOutError):
+            request = failure.request
+            self.logger.error('TimeoutError on %s', request.url)

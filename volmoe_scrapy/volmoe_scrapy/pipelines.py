@@ -78,6 +78,7 @@ class VodtagScrapyPipeline(ImagesPipeline):
         # 这里的意思?在哪里进行图片目录的存储呢,可以用相对的,也能是绝对路径,
         # 注意!!!!无论是绝对路径还是相对路径!都需要在settings中进行IMAGES_STORE设置
         # path = 'full/' +image_name+ '/' + request.url[-7:]
+        # !!!!!!!!!!注意,标题中带?的,会有读写错误,
         path = 'D:\\code\\photo\\' +image_name+ '.jpg'
         return path
    

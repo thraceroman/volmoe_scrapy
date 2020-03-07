@@ -12,7 +12,7 @@ from volmoe_scrapy.items import PhvScrapyItem
 class PhotovSpider(CrawlSpider):
     name = 'photov'
     allowed_domains = ['68aiav.com']
-    start_urls = ['http://www.68aiav.com/vodtag/無碼破解版/']
+    start_urls = ['http://www.68aiav.com/vodtag/痉挛']
 
     rules = (
         Rule(LinkExtractor(allow=r'/vod/\d+\.html'),callback='get_play_url'),
@@ -39,7 +39,7 @@ class PhotovSpider(CrawlSpider):
         
     def get_m3u8_url(self,response):
         item = response.meta['item']
-        url_if = re.findall('<script>var player=unescape\("(.*?)"\);',response.body.decode())
+        url_if = re.findall(r'<script>var player=unescape\("(.*?)"\);',response.body.decode())
         if url_if == []:
             print('这里到底发生了什么??'+item['play'])
         else:
